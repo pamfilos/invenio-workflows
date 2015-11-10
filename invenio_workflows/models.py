@@ -32,6 +32,8 @@ from invenio_base.globals import cfg
 from invenio_base.helpers import unicodifier
 
 from invenio_ext.sqlalchemy import db
+from invenio_ext.sqlalchemy import hybrid_property
+
 from invenio_ext.sqlalchemy.utils import session_manager
 
 from six import callable, iteritems
@@ -118,7 +120,7 @@ class Workflow(db.Model):
                                  # backref='bwlWORKFLOW',
                                  cascade="all, delete, delete-orphan")
 
-    @db.hybrid_property
+    @hybrid_property
     def uuid(self):
         """Get uuid."""
         return self._uuid
@@ -351,7 +353,7 @@ class BibWorkflowObject(db.Model):
 
     _log = None
 
-    @db.hybrid_property
+    @hybrid_property
     def id_workflow(self):
         """Get id_workflow."""
         return self._id_workflow
@@ -928,7 +930,7 @@ class BibWorkflowEngineLog(db.Model):
     created = db.Column(db.DateTime, default=datetime.now)
     message = db.Column(db.TEXT, default="", nullable=False)
 
-    @db.hybrid_property
+    @hybrid_property
     def id_object(self):
         """Get id_object."""
         return self._id_object
